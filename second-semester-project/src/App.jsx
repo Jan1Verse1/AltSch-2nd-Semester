@@ -6,10 +6,10 @@ import {
   Navigate,
 } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
-import NotFound from "../src/assets/pages/notFound";
-import FallBack from "../src/assets/pages/fallBack";
+import NotFound from "../src/pages/notFound";
+import FallBack from "../src/pages/fallBack";
 
-import Home from "./assets/pages/home";
+import Home from "../src/pages/home";
 
 const App = () => {
   const handleError = (error, info) => {
@@ -26,8 +26,7 @@ const App = () => {
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
-      </Router>
-      //{" "}
+      </Router>{" "}
     </ErrorBoundary>
   );
 };
