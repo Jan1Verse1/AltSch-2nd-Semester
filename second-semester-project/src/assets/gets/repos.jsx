@@ -5,6 +5,8 @@ import RepoCard from "../components/repoCard";
 
 const Repos = () => {
   const [repos, setRepos] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterLanguage, setFilterLanguage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const repoSize = 12;
 
@@ -24,16 +26,34 @@ const Repos = () => {
     fetchGitHubRepos();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterChange = (e) => {
+    setFilterLanguage(e.target.value);
+  };
+
+  const filteredRepos = repos
+    .filter((repo) =>
+      repo.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .filter((repo) =>
+      filterLanguage ? repo.language === filterLanguage : true
+    );
+
   const renderRepoCards = () => {
     const startIndex = (currentPage - 1) * repoSize;
     const endIndex = startIndex + repoSize;
-    const currentRepos = repos.slice(startIndex, endIndex);
+    const currentRepos = searchQuery || filterLanguage ? filteredRepos : repos;
+    const slicedRepos = currentRepos.slice(startIndex, endIndex);
 
-    return currentRepos.map((repo) => (
+    return slicedRepos.map((repo) => (
       <RepoCard
         key={repo.id}
         name={repo.name}
         visibility={repo.visibility}
+        language={repo.language}
         updatedAt={repo.updated_at}
         htmlUrl={repo.html_url}
       />
@@ -46,18 +66,38 @@ const Repos = () => {
 
   return (
     <div className="p-10 max-w-6xl flex-col justify-between items-center">
-      <h3 className="text-2xl font-semibold mb-4">My Repositories</h3>
+      <h3 className="text-xl font-semibold mb-4">My Repositories</h3>
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search repositories..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+          className="px-4 py-2 border border-gray-300 rounded-md mr-2"
+        />
+        <select
+          value={filterLanguage}
+          onChange={handleFilterChange}
+          className="px-4 py-2 border border-gray-300 rounded-md"
+        >
+          <option value="">All Languages</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="CSS">CSS</option>
+          <option value="HTML">HTML</option>
+          <option value="Shell">Shell</option>
+        </select>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {renderRepoCards()}
       </div>
-      <div className="flex justify-end mt-6 ">
-        <Pagination
-          currentPage={currentPage}
-          totalCount={repos.length}
-          pageSize={repoSize}
-          onPageChange={handlePageChange}
-        />
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalCount={
+          searchQuery || filterLanguage ? filteredRepos.length : repos.length
+        }
+        pageSize={repoSize}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
