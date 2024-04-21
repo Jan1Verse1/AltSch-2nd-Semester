@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import MyModal from "./modals/MyModal";
 
 const Header = () => {
   const [profileData, setProfileData] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchGitHubProfile = async () => {
@@ -19,6 +21,14 @@ const Header = () => {
 
     fetchGitHubProfile();
   }, []);
+
+  // const openModal = () => {
+  //   setShowModal(true);
+  // };
+
+  // const closeModal = () => {
+  //   setShowModal(false);
+  // };
 
   return (
     <div className="bg-cyan-900">
@@ -38,15 +48,14 @@ const Header = () => {
           )}
           <h4 className="text-white text-lg"> Jan1Verse1</h4>
         </NavLink>
-        <a
-          href="https://github.com/Jan1Verse1?tab=repositories"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white text-lg shadow hover:shadow-lg active:shadow-xl p-4 rounded-xl transition duration-150 ease-in-out cursor-pointer"
+        {/* <button
+          onClick={openModal}
+          className="text-white text-lg  duration-150 ease-in-out cursor-pointer"
         >
-          My Repositories
-        </a>
+          Add A Repository
+        </button> */}
       </nav>
+      {showModal && <MyModal onClose={closeModal} />}
     </div>
   );
 };

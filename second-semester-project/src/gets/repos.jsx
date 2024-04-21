@@ -67,7 +67,7 @@ const Repos = () => {
   return (
     <div className="p-10 max-w-6xl flex-col justify-between items-center">
       <h3 className="text-xl font-semibold mb-4">My Repositories</h3>
-      <div className="mb-4">
+      <div className="mb-4 justify-end mt-6  sm:flex-col">
         <input
           type="text"
           placeholder="Search repositories..."
@@ -90,7 +90,7 @@ const Repos = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {renderRepoCards()}
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end mt-6">
         <Pagination
           currentPage={currentPage}
           totalCount={
