@@ -90,14 +90,16 @@ const Repos = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {renderRepoCards()}
       </div>
-      <Pagination
-        currentPage={currentPage}
-        totalCount={
-          searchQuery || filterLanguage ? filteredRepos.length : repos.length
-        }
-        pageSize={repoSize}
-        onPageChange={handlePageChange}
-      />
+      <div className="flex justify-end">
+        <Pagination
+          currentPage={currentPage}
+          totalCount={
+            searchQuery || filterLanguage ? filteredRepos.length : repos.length
+          }
+          pageSize={repoSize}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };
