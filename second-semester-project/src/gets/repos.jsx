@@ -9,12 +9,21 @@ const Repos = () => {
   const [filterLanguage, setFilterLanguage] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const repoSize = 12;
+  const GITHUB_TOKEN = import.meta.env.GITHUB_PERSONAL_TOKEN;
 
   useEffect(() => {
     const fetchGitHubRepos = async () => {
       try {
+        // const config = {
+        //   headers: {
+        //     Authorization: `Bearer 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
+        //     `,
+        //   },
+        // };
+
         const response = await axios.get(
-          `https://api.github.com/users/Jan1Verse1/repos`
+          `https://api.github.com/users/Jan1Verse1/repos`,
+          // config
         );
         setRepos(response.data);
         console.log("Repos:", response.data);
@@ -65,7 +74,7 @@ const Repos = () => {
   };
 
   return (
-    <div className="p-10 max-w-6xl flex-col justify-between items-center">
+    <div className="width-auto p-10 max-w-6xl flex-col justify-between items-center">
       <h3 className="text-xl font-semibold mb-4">My Repositories</h3>
       <div className="mb-4 justify-end mt-6  sm:flex-col">
         <input

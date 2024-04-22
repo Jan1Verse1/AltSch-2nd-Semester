@@ -23,6 +23,9 @@ const RepoCard = ({ name, visibility, updatedAt, language, htmlUrl }) => {
           href={htmlUrl}
           target="_blank"
           rel="noopener noreferrer"
+          // onClick={() => {
+          //   navigate(`/repos/${i.name}`);
+          // }}
         >
           See More
         </a>

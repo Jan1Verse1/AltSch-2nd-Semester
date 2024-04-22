@@ -8,6 +8,7 @@ import {
 import { ErrorBoundary } from "react-error-boundary";
 import NotFound from "../src/pages/notFound";
 import FallBack from "../src/pages/fallBack";
+// import Repo from "./gets/repo";
 
 import Home from "../src/pages/home";
 
@@ -23,6 +24,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* <Route path="/repos/:name" element={<Repo />} /> */}
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />
         </Routes>
