@@ -14,16 +14,16 @@ const Repos = () => {
   useEffect(() => {
     const fetchGitHubRepos = async () => {
       try {
-        // const config = {
-        //   headers: {
-        //     Authorization: `Bearer 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
-        //     `,
-        //   },
-        // };
+        const config = {
+          headers: {
+            Authorization: `Bearer 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
+            `,
+          },
+        };
 
         const response = await axios.get(
           `https://api.github.com/users/Jan1Verse1/repos`,
-          // config
+          config
         );
         setRepos(response.data);
         console.log("Repos:", response.data);
